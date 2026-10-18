@@ -82,7 +82,7 @@ Her şey gönlünce olsun Fatoş. Kendine çok iyi bak ve o güzel gülümsemeni
 <section id="ending" class="screen"><div class="panel"><div class="emoji">💗🌷✨</div><h1>İyi ki doğdun Fatoş</h1><p>Bu küçük sürprizin yüzünde bir gülümseme oluşturmasını umuyorum. Yeni yaşın sana huzur, mutluluk ve güzel anılar getirsin. Kendine çok iyi bak. 🎀</p><p>Nice güzel yaşlara 💗</p><button onclick="showScreen('giftsScreen')">Hediyelere tekrar bak 🎁</button></div></section>
 </main><footer>Fatoş için sevgiyle hazırlandı 💗</footer>
 <script>
-const targetDate = new Date(Date.now() + 2 * 60 * 1000);
+const targetDate = new Date('2026-11-23T00:00:00+03:00');
 const $ = id => document.getElementById(id);
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
 function confetti(){const chars=['💗','✨','🌸','🎀','⭐'];for(let i=0;i<28;i++){const e=document.createElement('span');e.textContent=chars[Math.floor(Math.random()*chars.length)];e.style.left=Math.random()*100+'%';e.style.animationDuration=(4+Math.random()*5)+'s';e.style.fontSize=(14+Math.random()*15)+'px';$('floaties').appendChild(e);setTimeout(()=>e.remove(),9500)}}
