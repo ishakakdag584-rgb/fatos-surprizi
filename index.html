@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#fce7f3">
+<title>Fatoş'a Küçük Bir Sürpriz 🎀</title>
+<style>
+:root{--pink:#f7b8d0;--pink2:#ffe4ef;--lilac:#d9c8ff;--deep:#754b83;--ink:#624d68;--white:#fffaff}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif;color:var(--ink);background:radial-gradient(circle at top left,#fff5fa,transparent 40%),linear-gradient(135deg,#ffe6f0,#eee5ff);overflow-x:hidden}
+button{font:inherit;cursor:pointer;border:0;border-radius:999px;padding:12px 20px;background:linear-gradient(135deg,#f6aeca,#d4baff);color:#593b65;font-weight:800;box-shadow:0 5px 0 #c9a0ce;transition:transform .15s}
+button:hover{transform:translateY(-2px)}button:active{transform:translateY(2px);box-shadow:0 2px 0 #c9a0ce}
+button.secondary{background:#fff7fc;box-shadow:0 4px 0 #ead4ed}
+main{width:min(920px,100%);margin:auto;padding:22px 15px 50px}
+.screen{display:none;min-height:80vh;align-items:center;justify-content:center;text-align:center}
+.screen.active{display:flex;animation:fade .55s ease}
+.panel{width:min(720px,100%);padding:clamp(22px,5vw,44px) clamp(16px,4vw,34px);background:#ffffffbd;border:1px solid #fff;border-radius:30px;box-shadow:0 16px 45px #a77aa526;backdrop-filter:blur(8px)}
+h1{font-size:clamp(1.8rem,6vw,3.1rem);line-height:1.12;margin:8px 0 18px;color:#a45d91}
+h2{font-size:clamp(1.35rem,4vw,2rem);color:#a45d91;margin:10px 0 15px}
+p{line-height:1.75;font-size:1.02rem}
+.small{font-size:.9rem;opacity:.8}.emoji{font-size:3rem}.countdown{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:24px 0}
+.timebox{min-width:72px;padding:12px 10px;background:#fff6fc;border:1px solid #f6d8e9;border-radius:17px}
+.timebox strong{display:block;font-size:1.65rem;color:#9d5b91}.timebox span{font-size:.78rem}
+.floaties{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:-1}
+.floaties span{position:absolute;bottom:-40px;opacity:.5;animation:floatUp linear infinite}
+@keyframes floatUp{to{transform:translateY(-115vh) rotate(30deg);opacity:0}}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.7);opacity:0}100%{transform:scale(1);opacity:1}}
+.message{text-align:left;background:#fff8fc;border-radius:22px;padding:20px 22px;white-space:pre-line}
+.cake{font-size:clamp(5rem,22vw,9rem);user-select:none;touch-action:manipulation;display:inline-block;cursor:pointer;filter:drop-shadow(0 8px 8px #c58ac744);transition:transform .2s}
+.cake.holding{transform:scale(.94)}
+.cakehint{font-weight:700;background:#fff5fb;padding:12px;border-radius:15px}
+.gifts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:24px 0}
+.gift{border-radius:20px;min-height:120px;background:linear-gradient(145deg,#fff6fb,#f0e8ff);border:2px solid #fff;box-shadow:0 6px 15px #aa7da51b;padding:12px 5px;color:#86518a}
+.gift .gifticon{font-size:2.8rem;display:block}.gift small{display:block;margin-top:7px}
+.game-area{background:#fff8fc;border-radius:20px;padding:18px;margin:20px 0;min-height:180px}
+.game-buttons{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:12px 0}
+.playfield{position:relative;height:260px;background:linear-gradient(#fff6fb,#f0eaff);border-radius:17px;overflow:hidden;border:1px solid #f2d8ed}
+.target{position:absolute;border:0;background:transparent;box-shadow:none;padding:0;font-size:2rem;min-width:38px}
+.memorygrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;max-width:390px;margin:12px auto}
+.memorycard{height:74px;border-radius:14px;background:#e9dcff;font-size:1.7rem;box-shadow:0 3px 0 #c9b4e8;padding:5px}
+.memorycard.revealed{background:#fff0f7}
+.starboard{display:grid;grid-template-columns:repeat(3,64px);gap:10px;justify-content:center;margin:18px auto}
+.starboard button{padding:0;height:60px;font-size:1.7rem;border-radius:15px}
+.decorate{font-size:2rem;padding:10px}
+footer{text-align:center;font-size:.8rem;opacity:.7;padding:8px}
+@media(max-width:540px){main{padding:12px 10px 30px}.panel{border-radius:24px}.gifts{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.gift{min-height:105px}.timebox{min-width:62px}.memorycard{height:65px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div class="floaties" id="floaties" aria-hidden="true"></div>
+<main>
+<section id="lock" class="screen active"><div class="panel">
+<div class="emoji">🔐💗</div><h1>Fatoş için küçük bir sürpriz</h1>
+<p>Bu minik hediyenin kilidi doğum gününde açılacak. O güne kadar biraz sabır, biraz da heyecan… 🌷</p>
+<div class="countdown" id="countdown">
+<div class="timebox"><strong>--</strong><span>Gün</span></div><div class="timebox"><strong>--</strong><span>Saat</span></div><div class="timebox"><strong>--</strong><span>Dakika</span></div><div class="timebox"><strong>--</strong><span>Saniye</span></div>
+</div><p class="small">23 Kasım 2026 · 00.00 (Türkiye saati)</p>
+</div></section>
+<section id="letter" class="screen"><div class="panel">
+<div class="emoji">💌🌸</div><h1>İyi ki doğdun Fatoşş 🎂💗</h1>
+<div class="message">Bugün senin için sıradan bir doğum günü mesajından biraz daha farklı, sana özel küçük bir şey hazırlamak istedim. Büyük, gösterişli bir hediye değil belki ama umarım açıp okuduğunda yüzünde güzel bir gülümseme oluşur ve bu küçük sürpriz gününe ayrı bir güzellik katar. 🌸
+
+Yeni yaşında bol bol gülmeni, kalbinin rahat olmasını ve gerçekten mutlu olduğun güzel günler yaşamanı diliyorum. Umarım bu yaşın sana beklediğinden çok daha güzel şeyler getirir.
+
+Her şey gönlünce olsun Fatoş. Kendine çok iyi bak ve o güzel gülümsemeni eksik etme. 🫶🏻
+
+İyi ki doğdun, nice güzel yaşlara 🎀💗</div>
+<p>Küçük hediyene devam etmek için tıkla 🌷</p><button onclick="showScreen('cakeScreen')">Devam et 🌷</button>
+</div></section>
+<section id="cakeScreen" class="screen"><div class="panel">
+<div class="emoji">🎂</div><h1>Bir dilek tut, Fatoş</h1>
+<p class="cakehint">Bir dilek tutmayı unutma. Mumları söndürmek için pastanın üzerine 3 saniye basılı tut. 🕯️</p>
+<div id="cake" class="cake" role="button" tabindex="0" aria-label="Mumları söndürmek için basılı tut">🎂</div>
+<p id="cakeStatus">Mumlar yanıyor…</p><div id="afterCake" hidden><h2>İyi ki doğdun Fatoş 💗</h2><button onclick="showScreen('wishScreen')">Devam et 🎀</button></div>
+</div></section>
+<section id="wishScreen" class="screen"><div class="panel"><div class="emoji">🌠</div><h1>Dileğini tuttun mu Fatoş?</h1><p>Dileğini içinden geçirmeyi unutma. 💗</p><div class="game-buttons"><button onclick="wishAnswer(true)">Evet 💗</button><button class="secondary" onclick="wishAnswer(false)">Hayır 🙈</button></div><p id="wishReply" aria-live="polite"></p></div></section>
+<section id="giftsScreen" class="screen"><div class="panel"><div class="emoji">🎁🎀</div><h1>Pastanı aldın, şimdi hediyeni seç bakalım Fatoş 🎁</h1><p>Her kutuda sana özel bir mesaj ve küçük bir oyun var. İstediğin sırayla açabilirsin. 🌸</p><div class="gifts" id="gifts"></div><p class="small">Yedi kutunun hepsini açıp oyunlarını deneyebilirsin.</p><button class="secondary" onclick="showScreen('ending')">Küçük sürprizi bitir 💗</button></div></section>
+<section id="gameScreen" class="screen"><div class="panel"><div class="emoji" id="gameEmoji">🎁</div><h1 id="gameTitle">Küçük bir oyun</h1><div class="message" id="giftMessage"></div><div id="gameArea" class="game-area"></div><p id="gameStatus" aria-live="polite"></p><div class="game-buttons"><button id="resetGame" class="secondary" onclick="startGame(currentGift)">Tekrar oyna ↻</button><button onclick="showScreen('giftsScreen')">Hediye kutularına dön 🎁</button></div></div></section>
+<section id="ending" class="screen"><div class="panel"><div class="emoji">💗🌷✨</div><h1>İyi ki doğdun Fatoş</h1><p>Bu küçük sürprizin yüzünde bir gülümseme oluşturmasını umuyorum. Yeni yaşın sana huzur, mutluluk ve güzel anılar getirsin. Kendine çok iyi bak. 🎀</p><p>Nice güzel yaşlara 💗</p><button onclick="showScreen('giftsScreen')">Hediyelere tekrar bak 🎁</button></div></section>
+</main><footer>Fatoş için sevgiyle hazırlandı 💗</footer>
+<script>
+const targetDate = new Date('2026-11-23T00:00:00+03:00');
+const $ = id => document.getElementById(id);
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function confetti(){const chars=['💗','✨','🌸','🎀','⭐'];for(let i=0;i<28;i++){const e=document.createElement('span');e.textContent=chars[Math.floor(Math.random()*chars.length)];e.style.left=Math.random()*100+'%';e.style.animationDuration=(4+Math.random()*5)+'s';e.style.fontSize=(14+Math.random()*15)+'px';$('floaties').appendChild(e);setTimeout(()=>e.remove(),9500)}}
+for(let i=0;i<18;i++){const e=document.createElement('span');e.textContent=['♡','✦','♥','✧'][i%4];e.style.left=Math.random()*100+'%';e.style.animationDuration=(9+Math.random()*12)+'s';e.style.animationDelay=(-Math.random()*18)+'s';e.style.fontSize=(14+Math.random()*18)+'px';$('floaties').appendChild(e)}
+function tick(){const now=Date.now(),diff=targetDate.getTime()-now;if(diff<=0){if(!$('letter').classList.contains('active')&&!sessionStorage.getItem('unlocked')){sessionStorage.setItem('unlocked','yes');confetti();showScreen('letter')}$('countdown').innerHTML='<div class="timebox"><strong>🎉</strong><span>Bugün senin günün</span></div>';return}const vals=[Math.floor(diff/86400000),Math.floor(diff/3600000)%24,Math.floor(diff/60000)%60,Math.floor(diff/1000)%60];const names=['Gün','Saat','Dakika','Saniye'];$('countdown').innerHTML=vals.map((v,i)=>`<div class="timebox"><strong>${String(v).padStart(2,'0')}</strong><span>${names[i]}</span></div>`).join('')}
+if(Date.now()>=targetDate.getTime()){confetti();showScreen('letter')}else tick();setInterval(()=>{if(Date.now()>=targetDate.getTime()&&$('lock').classList.contains('active')){confetti();showScreen('letter')}else tick()},1000);
+let holdTimer=null,holding=false;
+function extinguish(){holding=false;$('cake').classList.remove('holding');$('cake').textContent='🎂';$('cakeStatus').textContent='Dileğin kabul olsun Fatoş ✨';$('afterCake').hidden=false;confetti();}
+function startHold(e){if($('afterCake').hidden){e.preventDefault();holding=true;$('cake').classList.add('holding');$('cakeStatus').textContent='Biraz daha tut… 🕯️';holdTimer=setTimeout(()=>{holding=false;$('cake').classList.remove('holding');extinguish()},3000)}}
+function cancelHold(){clearTimeout(holdTimer);if(holding){holding=false;$('cake').classList.remove('holding');$('cakeStatus').textContent='Süre dolmadı, tekrar dene 💗'}}
+$('cake').addEventListener('pointerdown',startHold);$('cake').addEventListener('pointerup',cancelHold);$('cake').addEventListener('pointerleave',cancelHold);$('cake').addEventListener('pointercancel',cancelHold);$('cake').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){startHold(e);setTimeout(cancelHold,3100)}});
+function wishAnswer(yes){$('wishReply').textContent=yes?'Yaşasın, dileğin kabul olsun Fatoş 💗':'Aaa Fatoş, önce güzelce bir dilek tut bakalım 🙈💗';if(yes){setTimeout(()=>showScreen('giftsScreen'),850)}}
+const giftData=[
+{icon:'💗',name:'Pembe Kutu',msg:'Umarım yeni yaşında seni mutlu eden küçük şeyler hep çoğalır.',game:'hearts'},
+{icon:'🎁',name:'Lila Kutu',msg:'Umarım bu yıl karşına birbirinden güzel sürprizler çıkar.',game:'choose'},
+{icon:'⭐',name:'Yıldız Kutusu',msg:'Dilediğin güzel şeylerin bir gün gerçeğe dönüşmesi dileğiyle.',game:'stars'},
+{icon:'🎈',name:'Balon Kutusu',msg:'Yeni yaşın kahkaha, mutluluk ve güzel anılarla dolsun.',game:'balloons'},
+{icon:'🌸',name:'Çiçek Kutusu',msg:'Hayatında sana kendini iyi hissettiren insanlar ve güzel dostluklar hiç eksik olmasın.',game:'memory'},
+{icon:'🍰',name:'Pasta Kutusu',msg:'Bugün senin günün Fatoş. Umarım hayat sana kutlamaya değer nice güzel anlar getirir.',game:'cake'},
+{icon:'💌',name:'Gizli Mektup',msg:'Bu küçük sürprizi hazırlarken yüzünün güleceğini düşündüm. İyi ki doğdun Fatoş, nice mutlu senelere. 💗',game:'riddle'}
+];
+$('gifts').innerHTML=giftData.map((g,i)=>`<button class="gift" onclick="startGame(${i})"><span class="gifticon">${g.icon}</span><strong>${g.name}</strong><small>${i+1}. sürpriz</small></button>`).join('');
+let currentGift=0,gameInterval=null,gameTimeout=null,gameState={};
+function clearGame(){clearInterval(gameInterval);clearTimeout(gameTimeout);gameInterval=null;gameTimeout=null;gameState={};$('gameArea').innerHTML='';$('gameStatus').textContent='';}
+function startGame(i){currentGift=i;clearGame();const g=giftData[i];$('gameEmoji').textContent=g.icon;$('gameTitle').textContent=g.name;$('giftMessage').textContent=g.msg;showScreen('gameScreen');const area=$('gameArea');if(g.game==='hearts')gameHearts(area);if(g.game==='choose')gameChoose(area);if(g.game==='stars')gameStars(area);if(g.game==='balloons')gameBalloons(area);if(g.game==='memory')gameMemory(area);if(g.game==='cake')gameDecorate(area);if(g.game==='riddle')gameRiddle(area)}
+function finish(msg){$('gameStatus').textContent=msg+' 💗';}
+function gameHearts(area){gameState.n=0;area.innerHTML='<p>20 saniyede 10 kalp yakala. Kalplere dokun! 💗</p><div class="playfield" id="field"></div><p id="score">Yakalanan kalp: 0/10</p>';let f=$('field');function spawn(){if(!f.isConnected)return;let b=document.createElement('button');b.className='target';b.textContent=['💗','💕','💖'][Math.floor(Math.random()*3)];b.style.left=Math.random()*85+'%';b.style.top=Math.random()*75+'%';b.onclick=()=>{if(b.dataset.hit)return;b.dataset.hit='1';b.remove();gameState.n++;$('score').textContent=`Yakalanan kalp: ${gameState.n}/10`;if(gameState.n>=10){clearGame();area.innerHTML='<div class="emoji">🎉💗</div><h2>Hepsini yakaladın!</h2>';finish('Harikasın Fatoş, kalpler senin oldu!')}};f.appendChild(b);setTimeout(()=>b.remove(),1800)}gameInterval=setInterval(spawn,600);gameTimeout=setTimeout(()=>{clearGame();if(gameState.n<10)finish(`Süre bitti! ${gameState.n}/10 kalp yakaladın. Tekrar deneyebilirsin.`)},20000)}
+function gameChoose(area){const correct=Math.floor(Math.random()*3);area.innerHTML='<p>Üç hediyeden birinde küçük bir sürpriz saklı. Doğru kutuyu seç! 🎁</p><div class="game-buttons">'+[0,1,2].map(n=>`<button onclick="chooseGift(${n},${correct})">🎁 ${n+1}</button>`).join('')+'</div><div id="chooseResult"></div>'}
+function chooseGift(n,c){if(n===c){$('chooseResult').innerHTML='<div class="emoji">🎉💗</div><p>Doğru hediye! Sürprizi buldun.</p>';finish('Şansın da gülümsemen kadar güzel olsun!')}else $('chooseResult').textContent='Bu kutu değil 🙈 Başka birini dene.'}
+function gameStars(area){gameState.seq=[];gameState.expected=[1,2,3,4,5];area.innerHTML='<p>Yıldızlara 1’den 5’e kadar sırayla dokun, kalp ortaya çıksın. ⭐</p><div class="starboard">'+[1,2,3,4,5].map(n=>`<button onclick="tapStar(${n})" id="star${n}">⭐</button>`).join('')+'</div><div id="heartResult"></div>'}
+function tapStar(n){if(gameState.seq.includes(n))return;if(n!==gameState.seq.length+1){$('gameStatus').textContent='Biraz karıştı 🙈 Önce '+(gameState.seq.length+1)+'. yıldıza dokun.';return}gameState.seq.push(n);$('star'+n).textContent='✨';if(gameState.seq.length===5){$('heartResult').innerHTML='<div class="emoji">💖</div><p>Yıldızlar bir kalp oluşturdu!</p>';finish('Dileklerin yıldızlar kadar parlasın!')}}
+function gameBalloons(area){gameState.n=0;area.innerHTML='<p>Yukarı çıkan 10 balona dokunarak patlat! 🎈</p><div class="playfield" id="balloonField"></div><p id="balloonScore">Patlatılan balon: 0/10</p>';const f=$('balloonField');function spawn(){if(!f.isConnected)return;let b=document.createElement('button');b.className='target';b.textContent=['🎈','💜','🎈'][Math.floor(Math.random()*3)];b.style.left=Math.random()*85+'%';b.style.top='75%';f.appendChild(b);let top=75;const move=setInterval(()=>{top-=4;b.style.top=top+'%';if(top< -20||!b.isConnected)clearInterval(move)},160);b.onclick=()=>{clearInterval(move);b.remove();gameState.n++;$('balloonScore').textContent=`Patlatılan balon: ${gameState.n}/10`;if(gameState.n>=10){clearGame();area.innerHTML='<div class="emoji">🎉🎈</div><h2>Balonların hepsi patladı!</h2>';finish('Kutlaman hiç bitmesin!')}}}gameInterval=setInterval(spawn,700);gameTimeout=setTimeout(()=>{clearGame();if(gameState.n<10)finish(`Süre bitti! ${gameState.n}/10 balon patlattın. Tekrar deneyebilirsin.`)},20000)}
+function gameMemory(area){const vals=['🌸','💗','⭐'];let deck=[...vals,...vals].sort(()=>Math.random()-.5);gameState.first=null;gameState.busy=false;gameState.matched=new Set();gameState.moves=0;area.innerHTML='<p>Aynı olan üç çift kartı bul. Kartlara dokunarak aç. 🌷</p><div class="memorygrid">'+deck.map((v,i)=>`<button class="memorycard" id="mc${i}" onclick="flipCard(${i},'${v}')">❔</button>`).join('')+'</div><p id="memscore">Bulunan çift: 0/3</p>'}
+function flipCard(i,v){if(gameState.busy||gameState.matched.has(i)||gameState.first?.i===i)return;const b=$('mc'+i);b.textContent=v;b.classList.add('revealed');if(!gameState.first){gameState.first={i,v};return}gameState.moves++;if(gameState.first.v===v){gameState.matched.add(i);gameState.matched.add(gameState.first.i);gameState.first=null;$('memscore').textContent=`Bulunan çift: ${gameState.matched.size/2}/3`;if(gameState.matched.size===6)finish('Harika hafıza! Üç çifti de buldun.')}else{gameState.busy=true;const first=gameState.first;setTimeout(()=>{if($('mc'+i)&&$('mc'+first.i)){$('mc'+i).textContent='❔';$('mc'+first.i).textContent='❔';$('mc'+i).classList.remove('revealed');$('mc'+first.i).classList.remove('revealed')}gameState.first=null;gameState.busy=false},750)}}
+function gameDecorate(area){gameState.decor=[];area.innerHTML='<p>Aşağıdaki süsleri seçerek kendi mini pastanı hazırla. 🎂</p><div class="emoji" id="decorCake">🎂</div><div class="game-buttons">'+['🍓','💗','🍬','⭐','🌸'].map(v=>`<button class="decorate" onclick="addDecor('${v}')">${v}</button>`).join('')+'</div><button onclick="finishCake()">Pastam hazır 🎀</button>'}
+function addDecor(v){gameState.decor.push(v);$('decorCake').textContent='🎂'+gameState.decor.join('')}
+function finishCake(){if(!gameState.decor.length){$('gameStatus').textContent='Önce pastana birkaç süs ekle 🌸';return}$('gameArea').innerHTML='<div class="emoji">'+('🎂'+gameState.decor.join(''))+'</div><h2>Şahane bir pasta yaptın!</h2>';finish('Bu pastanın en güzel süsü senin gülümsemen!')}
+function gameRiddle(area){gameState.riddle=0;area.innerHTML=`<p>Üç küçük ipucunu çöz, gizli kelimeyi bul. 💌</p><h2 id="clue">1. ipucu: Geceleri gökyüzünde parlayan şey nedir?</h2><div class="game-buttons"><button onclick="answerRiddle('yıldız')">Yıldız</button><button onclick="answerRiddle('bulut')">Bulut</button><button onclick="answerRiddle('deniz')">Deniz</button></div><p id="riddleReply"></p>`}
+const clues=[{q:'1. ipucu: Geceleri gökyüzünde parlayan şey nedir?',a:'yıldız',opts:['Yıldız','Bulut','Deniz']},{q:'2. ipucu: Yağmurdan sonra gökyüzünde renk renk ne çıkabilir?',a:'gökkuşağı',opts:['Kar','Gökkuşağı','Sis']},{q:'3. ipucu: Sevgiyi anlatan şekil hangisi?',a:'kalp',opts:['Kare','Üçgen','Kalp']}];
+function answerRiddle(v){const c=clues[gameState.riddle];if(v!==c.a){$('riddleReply').textContent='Bir daha düşün bakalım 🙈';return}gameState.riddle++;if(gameState.riddle>=3){$('gameArea').innerHTML='<div class="emoji">💌💗</div><h2>Gizli kelime: SEVGİ</h2><p>Mektubun açıldı. İyi ki doğdun Fatoş.</p>';finish('Bütün ipuçlarını çözdün!')}else{const c2=clues[gameState.riddle];$('clue').textContent=c2.q;$('gameArea').querySelector('.game-buttons').innerHTML=c2.opts.map(o=>`<button onclick="answerRiddle('${o.toLocaleLowerCase('tr-TR')}')">${o}</button>`).join('');$('riddleReply').textContent='Doğru cevap! Sıradaki ipucu geldi. ✨'}}
+</script>
+</body>
+</html>
